@@ -71,10 +71,10 @@ if __name__ == '__main__':
                 if parts >= 10:
                     if b2.collectRig():
                         pass
-                time.sleep(100)  # 100s检查一次
+
 
             except Exception as e:
                 logger.debug(f'{auth[0]} 查询失败e=>{e}')
-                time.sleep(10) # 如果失败了 加快频率
-
+                time.sleep(10) #
+        time.sleep(100)  # 100s检查一次
 
