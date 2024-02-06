@@ -48,8 +48,8 @@ class B2Auto():
             print(data)
             return data
 
-    def collectRig(self):
-        if self.type == 'BASIC':
+    def collectRig(self, type):
+        if type == 'BASIC':
             params = {"parts_amount": 10, "assemble_spec": "one"}
             resp = self.session.post('https://buzz-api.bsquared.network/api/rigs/assemble/cpu', json=params)
             success = resp.json()['message']
@@ -58,7 +58,13 @@ class B2Auto():
                 return True
             return False
         else: # todo 等待更新 ADVANCED
-            pass
+            params = {"parts_amount": 80,"assemble_spec":"one"}
+            resp = self.session.post('https://buzz-api.bsquared.network/api/rigs/assemble/gpu', json=params)
+            success = resp.json()['message']
+            if success == 'success':
+                logger.debug(f'{self.name} 领取BASIC矿机成功')
+                return True
+            return False
 if __name__ == '__main__':
     auths = loadAuths()
     print(f'读取到 {len(auths)} 个账号')
@@ -69,7 +75,10 @@ if __name__ == '__main__':
                 parts, rate = b2.getRates()
                 logger.debug(f'{auth[0]}----parts:{parts}----rate:{rate}')
                 if parts >= 10:
-                    if b2.collectRig():
+                    if b2.collectRig('BASIC'):
+                        pass
+                if parts >= 80:
+                    if b2.collectRig('ADVANCED'):
                         pass
 
 
