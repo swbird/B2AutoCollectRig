@@ -54,7 +54,7 @@ class B2Auto():
         resp = self.session.post('https://buzz-api.bsquared.network/api/rigs/assemble/cpu', json=params)
         success = resp.json()['message']
         if success == 'success':
-            logger.debug(f'{self.name} 领取BASIC矿机成功')
+            logger.debug(f'{self.name} 领取ADV矿机成功')
             return True
         return False
         # else: # todo 等待更新 ADVANCED
